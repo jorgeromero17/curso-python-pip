@@ -1,14 +1,22 @@
 import utils
 import charts
 import read_csv
-
+import pandas as pd
 
 def run():
-  data = read_csv.read_csv('./data.csv')
-  
+  '''
   labels,values = utils.get_column_word_population_percentage(data)
   charts.generate_pie_chart(labels,values)
+  '''
+  df = pd.read_csv('./data.csv')
+  df = df[df['Continent'] == 'Africa']
   
+  countries = df['Country/Territory'].values
+  percentages = df['World Population Percentage'].values
+  
+  charts.generate_pie_chart(countries,percentages)
+
+  data = read_csv.read_csv('./data.csv')
   country = input('Type country => ')
   country_data = utils.population_by_country(data, country)
 
